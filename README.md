@@ -19,9 +19,11 @@ dixchete
 
 ## Beyond this, I threw together a version of this built in Go, called Dixchete.
 
-### Dixchete = Disk + Cheet...I like this because it is a word that reads perfectly but will twist your tongue trying to say it!
+### Dixchete = Disk + Cheet...
 
-### Think 'bruschetta' sorta sound
+### Good luck trying to pronounce it correctly when sharing it verbally! It's easy to read but tricky to say.
+
+### I imagine a sort of phonic 'bruschetta'-esque sound
 
 You need to build it yourself, as I have not signed the .exe. You can do so (minus cert) with the following commands:
 
