@@ -1,6 +1,6 @@
 # Dixchete
 
-### Having trouble quickly understanding space, drive setup, etc., I decided to ### create a cheat sheet of commands for easy reference.
+### Having trouble quickly understanding space, drive setup, etc., I decided to create a cheat sheet of commands for easy reference.
 
 Scroll down for the commands, and use the installation instructions for a quick way to build your own `.exe` file to invoke the cheet sheet in your command line on the fly. 
 
