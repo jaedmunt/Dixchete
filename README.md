@@ -2,6 +2,58 @@
 
 Having trouble quickly understanding space, drive setup, etc., I decided to create a cheat sheet of commands for easy reference.
 
+---
+Command for the cli:
+
+```bash
+dixchete
+```
+---
+
+## Beyond this, I threw together a version of this built in Go, called Dixchete.
+
+## Dixchete = Disk + Cheet...I like this because it is a word that reads perfectly but will twist your tongue trying to say it!
+
+## Think 'bruschetta' sorta sound
+
+You need to build it yourself, as I have not signed the .exe. You can do so (minus cert) with the following commands:
+
+```bash
+go mod init dixchete
+```
+```bash
+go build -o dixchete.exe dixchete.go
+```
+
+Make a folder, e.g:
+
+```bash
+mkdir "C:\Program Files\dixchete"
+```
+Then move your executable to it e.g.,;
+
+```bash
+move dixchete.exe "C:\Program Files\dixchete"
+```
+
+Add this to pat. If you have the same structure as me, the path would be:
+
+```bash
+C:\Program Files\dixchete
+```
+
+Verify with:
+
+```bash
+echo %PATH%
+```
+
+```
+To invoke it when you need a fast way to print your cheets, just use the command:
+
+```bash
+dixchete
+```
 ## Storage Space Commands
 
 - **`df -h`**
