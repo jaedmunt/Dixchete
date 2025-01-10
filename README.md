@@ -1,4 +1,4 @@
-# computer_hardware_commands
+# Dixchete
 
 Having trouble quickly understanding space, drive setup, etc., I decided to create a cheat sheet of commands for easy reference.
 
