@@ -4,7 +4,7 @@
 
 *Note: The nice title and fonts don't render on GitHub browser.*
 
-### I was having trouble quickly getting my computer specs when shopping for components, so I decided to create a cheat sheet of commands for easy reference, accessible by the command line. 
+> #### I was having trouble quickly getting my computer specs when shopping for components, so I decided to create a cheat sheet of commands for easy reference, accessible by the command line. 
 
 Scroll down for the commands, and use the installation instructions for a quick way to build your own `.exe` file to invoke the cheet sheet in your command line on the fly. 
 
