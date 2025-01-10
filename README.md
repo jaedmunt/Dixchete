@@ -66,7 +66,6 @@ Verify with:
 echo %PATH%
 ```
 
-```
 To invoke it when you need a fast way to print your cheets, just use the command:
 
 ```bash
