@@ -1,6 +1,13 @@
 # Dixchete
 
-Having trouble quickly understanding space, drive setup, etc., I decided to create a cheat sheet of commands for easy reference.
+### Having trouble quickly understanding space, drive setup, etc., I decided to ### create a cheat sheet of commands for easy reference.
+
+Scroll down for the commands, and use the installation instructions for a quick way to build your own `.exe` file to invoke the cheet sheet in your command line on the fly. 
+
+Dependencies:
+
+- Built on windows, not really tested lol
+- Go to compile it (added to PATH)
 
 ---
 Command for the cli:
@@ -12,9 +19,9 @@ dixchete
 
 ## Beyond this, I threw together a version of this built in Go, called Dixchete.
 
-## Dixchete = Disk + Cheet...I like this because it is a word that reads perfectly but will twist your tongue trying to say it!
+### Dixchete = Disk + Cheet...I like this because it is a word that reads perfectly but will twist your tongue trying to say it!
 
-## Think 'bruschetta' sorta sound
+### Think 'bruschetta' sorta sound
 
 You need to build it yourself, as I have not signed the .exe. You can do so (minus cert) with the following commands:
 
