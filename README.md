@@ -54,7 +54,7 @@ Then move your executable to it e.g.,;
 move dixchete.exe "C:\Program Files\dixchete"
 ```
 
-Add this to pat. If you have the same structure as me, the path would be:
+Add this to path. If you have the same structure as me, the path would be:
 
 ```bash
 C:\Program Files\dixchete
