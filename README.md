@@ -2,7 +2,7 @@
     <strong><span style="font-size: 24px; color: #1E90FF; text-shadow: 0 0 5px #1E90FF;">Dixchete</span></strong>
 </p>
 
-<italic>n.b the nice title and fonts don't render on github browser </italic>.
+*Note: The nice title and fonts don't render on GitHub browser.*
 
 ### I was having trouble quickly getting my computer specs when shopping for components, so I decided to create a cheat sheet of commands for easy reference, accessible by the command line. 
 
