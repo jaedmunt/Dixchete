@@ -1,6 +1,8 @@
-# Dixchete
+<p align="center">
+    <strong><span style="font-size: 24px; color: #1E90FF; text-shadow: 0 0 5px #1E90FF;">Dixchete</span></strong>
+</p>
 
-### Having trouble quickly understanding space, drive setup, etc., I decided to create a cheat sheet of commands for easy reference.
+### I was having trouble quickly getting my computer specs when shopping for components, so I decided to create a cheat sheet of commands for easy reference, accessible by the command line. 
 
 Scroll down for the commands, and use the installation instructions for a quick way to build your own `.exe` file to invoke the cheet sheet in your command line on the fly. 
 
@@ -16,14 +18,19 @@ Command for the cli:
 dixchete
 ```
 ---
+## Introducing Dixchete
 
-## Beyond this, I threw together a version of this built in Go, called Dixchete.
+<p align="center">
+    <strong><span style="font-size: 24px; color: #1E90FF;">Dixchete = Disk + Cheat Sheet</span></strong>
+</p>
 
-### Dixchete = Disk + Cheet...
+<p align="center">
+    <strong><span style="font-size: 16px; color: #228B22;">A handy tool for quickly accessing disk and system commands.</span></strong>
+</p>
 
-### Good luck trying to pronounce it correctly when sharing it verbally! It's easy to read but tricky to say.
-
-### I imagine a sort of phonic 'bruschetta'-esque sound
+<p align="center">
+    <strong><span style="font-size: 16px; color: #228B22;">Note: The name is theoretically pronounced similar to <span style="background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);"><strong><span style="color: #000000;">bruschetta</span></strong></span> but good luck sharing it by word of mouth!</span></strong>
+</p>
 
 You need to build it yourself, as I have not signed the .exe. You can do so (minus cert) with the following commands:
 
