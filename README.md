@@ -4,78 +4,77 @@
 
 *Note: The nice title and fonts don't render on GitHub browser.*
 
-> #### I was having trouble quickly getting my computer specs when shopping for components, so I decided to create a cheat sheet of commands for easy reference, accessible by the command line. 
+### Includes: 
+    - Copy paste commands on this README
+    - A command line tool to quickly accessing your computer's specs
 
-Scroll down for the commands, and use the installation instructions for a quick way to build your own `.exe` file to invoke the cheet sheet in your command line on the fly. 
+###  Command line tool Features 
+
+1. Interactive CLI interface with ASCII art display
+2. Color-coded command categories and outputs
+3. Fuzzy matching for category names
+4. Execute commands directly or copy to clipboard
+5. A navigatable menu to choose multiple options without restarting command prompt
+6. Real-time command output display
+
+> #### WHY?: I was having trouble quickly getting my computer specs when shopping for components, so I decided to create a cheat sheet of commands for easy reference, accessible by the command line.
 
 ## Dependencies:
 
-1. Go
-2. I built and tested on windows - though no unit tests 
-3. Go (added to PATH)
-4. Install the ascii converter
-    ```go
-        go get -u github.com/qeesung/image2ascii/convert
+1. [Go](https://go.dev/dl/) - Download and install Go for your OS
+2. Go must be added to PATH:
+    ```cmd
+    setx GOPATH "%USERPROFILE%\go"
+    setx PATH "%PATH%;%USERPROFILE%\go\bin"
     ```
 
----
-Command for the cli:
+3. Add dixchete to PATH:
+    ```cmd
+    setx PATH "%PATH%;C:\Program Files\dixchete"
+    ```
 
-```bash
-dixchete
-```
----
-## Introducing Dixchete
+4. Install the ASCII converter:
+    ```go
+    go get -u github.com/qeesung/image2ascii/convert
+    ```
 
-<p align="center">
-    <strong><span style="font-size: 24px; color: #1E90FF;">Dixchete = Disk + Cheat Sheet</span></strong>
-</p>
+## Installation
 
-<p align="center">
-    <strong><span style="font-size: 16px; color: #228B22;">A handy tool for quickly accessing disk and system commands.</span></strong>
-</p>
-
-<p align="center">
-    <strong><span style="font-size: 16px; color: #228B22;">Note: The name is theoretically pronounced similar to <span style="background: linear-gradient(to right, #008C45, #F4F5F0, #CD212A);"><strong><span style="color: #000000;">bruschetta</span></strong></span> but good luck sharing it by word of mouth!</span></strong>
-</p>
-
-You need to build it yourself, as I have not signed the .exe. You can do so (minus cert) with the following commands:
+Build it yourself since the .exe isn't signed:
 
 ```go
 go mod init dixchete
-```
-```go
 go build -o dixchete.exe dixchete.go
-```
-
-Make a folder, e.g:
-
-```bash
 mkdir "C:\Program Files\dixchete"
-```
-Then move your executable to it e.g.,;
-
-```bash
 move dixchete.exe "C:\Program Files\dixchete"
 ```
 
-Add this to path. If you have the same structure as me, the path would be:
-
-```bash
-C:\Program Files\dixchete
-```
-
-Verify with:
-
-```bash
-echo %PATH%
-```
-
-To invoke it when you need a fast way to print your cheets, just use the command:
-
+To use, simply run:
 ```bash
 dixchete
 ```
+
+## Navigation Guide
+
+#### Main Menu
+- Select a category by:
+    1. Entering the category number (1-4)
+    2. Typing partial category name
+    3. Press 'q' to quit
+
+#### Category Menu
+- Within a category:
+    1. Enter command number to select it
+    2. Press Enter to go back
+
+#### Command Menu
+- For selected commands:
+    1. Press Enter to go back
+    2. Enter 'p' to print command
+    3. Enter 'e' to execute command
+    4. Enter 'q' to quit
+
+## Available Categories & Commands
 ## Storage Space Commands
 
 - **`df -h`**
