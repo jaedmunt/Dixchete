@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 	"time"
@@ -142,14 +143,27 @@ PCI\VEN_10DE&DEV_1C82&SUBSYS_33511462&REV_A1\4&F8D4272&0&0008   NVIDIA GeForce G
 	},
 }
 
+// findCategoryByPartialName attempts to match the user input to a category.
+// This is the coolest function. I had to idiot proof it because I can't touch type lol
+
+func findCategoryByPartialName(partial string) (string, bool) {
+	partial = strings.ToLower(partial)
+	for category := range categories {
+		if strings.Contains(strings.ToLower(category), partial) {
+			return category, true
+		}
+	}
+	return "", false
+}
+
 // printCategories prints the list of available categories. I thought I would clarify that 0_0
 
 func printCategories() {
-	fmt.Println("Available Command Categories:")
-	idx := 1
-	for cat := range categories {
-		fmt.Printf("  %d. %s\n", idx, cat)
-		idx++
+	fmt.Println("\nAvailable Categories:")
+	i := 1
+	for category := range categories {
+		fmt.Printf("%d. %s\n", i, category)
+		i++
 	}
 	fmt.Println()
 }
@@ -162,94 +176,127 @@ func printCommandsInCategory(categoryName string) {
 		return
 	}
 	fmt.Printf("\n=== %s ===\n\n", categoryName)
-	for _, c := range cmds {
-		fmt.Printf("Command:      %s\n", c.Name)
-		fmt.Printf("Description:  %s\n", c.Description)
-		fmt.Printf("Usage:        %s\n", c.Usage)
+	for i, c := range cmds {
+		fmt.Printf("%d. Command:      %s\n", i+1, c.Name)
+		fmt.Printf("   Description:  %s\n", c.Description)
+		fmt.Printf("   Usage:        %s\n", c.Usage)
 		if c.ExampleOutput != "" {
-			fmt.Println("Example Output:")
+			fmt.Println("   Example Output:")
 			for _, line := range strings.Split(c.ExampleOutput, "\n") {
-				fmt.Printf("  %s\n", line)
+				fmt.Printf("     %s\n", line)
 			}
 		}
 		fmt.Println("------------------------------------------------------")
 	}
-}
+	// Whatever aommand the user has selected - this handles their choice
+	fmt.Print("\nEnter command number (or Enter to go back): ")
+	reader := bufio.NewReader(os.Stdin)
+	text, _ := reader.ReadString('\n')
+	text = strings.TrimSpace(text)
 
-// findCategoryByPartialName attempts to match the user input to a category.
-// This is the coolest function. I had to idiot proof it because I can't touch type lol
-func findCategoryByPartialName(input string) (string, bool) {
-	input = strings.ToLower(input)
-	for cat := range categories {
-		if strings.Contains(strings.ToLower(cat), input) {
-			return cat, true
+	if text != "" {
+		if num, err := strconv.Atoi(text); err == nil && num > 0 && num <= len(cmds) {
+			handleCommandExecution(cmds[num-1])
 		}
 	}
-	return "", false
+}
+
+func handleCommandExecution(command Command) {
+	fmt.Printf("\n\033[1;34mCommand Options:\033[0m\n")
+	fmt.Printf("- Press Enter to go back\n")
+	fmt.Printf("- Enter 'p' to print command\n")
+	fmt.Printf("- Enter 'e' to execute command\n")
+	fmt.Printf("- Enter 'q' to quit\n")
+	fmt.Print("\n\033[1;37m→ \033[0m")
+
+	reader := bufio.NewReader(os.Stdin)
+	choice, _ := reader.ReadString('\n')
+	choice = strings.TrimSpace(strings.ToLower(choice))
+
+	// Strip ANSI color codes for execution
+	cleanCommand := strings.ReplaceAll(command.Name, "\033[33m", "")
+	cleanCommand = strings.ReplaceAll(cleanCommand, "\033[32m", "")
+	cleanCommand = strings.ReplaceAll(cleanCommand, "\033[35m", "")
+	cleanCommand = strings.ReplaceAll(cleanCommand, "\033[36m", "")
+	cleanCommand = strings.ReplaceAll(cleanCommand, "\033[0m", "")
+
+	switch choice {
+	case "p":
+		fmt.Printf("\n\033[1;32mCommand copied to terminal:\033[0m %s\n", cleanCommand)
+	case "e":
+		fmt.Printf("\n\033[1;33mExecuting command:\033[0m %s\n", cleanCommand)
+		cmd := exec.Command("powershell.exe", "-Command", cleanCommand)
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Printf("\033[1;31mError executing command:\033[0m %v\n", err)
+			fmt.Println("Try running the command directly in PowerShell")
+		} else {
+			fmt.Printf("\n\033[1;32mOutput:\033[0m\n%s\n", string(output))
+		}
+	case "q":
+		os.Exit(0)
+	default:
+		return
+	}
 }
 
 func main() {
 	args := os.Args
-	// If no arguments are provided, show category list and prompt user to quit
-	// A bit like a bad barrister except no category lists
-	if len(args) == 1 {
-		printCategories()
+	for {
+		if len(args) == 1 {
+			printCategories()
 
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("Enter the number or exact name of the category (or 'q' to quit): ")
-		text, _ := reader.ReadString('\n')
-		text = strings.TrimSpace(text)
-		if strings.ToLower(text) == "q" {
-			return
-		}
-
-		// Check if user typed a number or a category name
-		//This pairs up with the partial naming so it is idiot proof squared because I also have fat fingers
-		num, err := strconv.Atoi(text)
-		if err == nil {
-			// It's a number, find the corresponding category
-			if num < 1 || num > len(categories) {
-				fmt.Println("Invalid category number.")
+			reader := bufio.NewReader(os.Stdin)
+			fmt.Printf("\n\033[1;34mSelect a category:\033[0m\n")
+			fmt.Printf("- Enter number (1-%d)\n", len(categories))
+			fmt.Printf("- Enter category name (partial matches supported)\n")
+			fmt.Printf("- Enter 'q' to quit\n")
+			fmt.Print("\n\033[1;37m→ \033[0m")
+			text, _ := reader.ReadString('\n')
+			text = strings.TrimSpace(text)
+			if strings.ToLower(text) == "q" {
 				return
 			}
-			// Convert categories map to slice for indexing
-			i := 1
-			for cat := range categories {
-				if i == num {
-					printCommandsInCategory(cat)
-					return
+
+			num, err := strconv.Atoi(text)
+			if err == nil {
+				if num < 1 || num > len(categories) {
+					fmt.Println("Invalid category number.")
+					continue
 				}
-				i++
+				i := 1
+				for cat := range categories {
+					if i == num {
+						printCommandsInCategory(cat)
+						break
+					}
+					i++
+				}
+			} else {
+				if _, exists := categories[text]; exists {
+					printCommandsInCategory(text)
+				} else {
+					cat, ok := findCategoryByPartialName(text)
+					if ok {
+						printCommandsInCategory(cat)
+					} else {
+						fmt.Printf("Category '%s' not found.\n", text)
+					}
+				}
 			}
 		} else {
-			// It's possibly a category name
-			// Exact match first
-			if _, exists := categories[text]; exists {
-				printCommandsInCategory(text)
-				return
+			userInput := strings.Join(args[1:], " ")
+			if _, exists := categories[userInput]; exists {
+				printCommandsInCategory(userInput)
+			} else {
+				cat, ok := findCategoryByPartialName(userInput)
+				if ok {
+					printCommandsInCategory(cat)
+				} else {
+					fmt.Printf("No category found matching '%s'.\n", userInput)
+				}
 			}
-			// Fallback to partial match
-			cat, ok := findCategoryByPartialName(text)
-			if ok {
-				printCommandsInCategory(cat)
-				return
-			}
-			fmt.Printf("Category '%s' not found.\n", text)
-		}
-	} else {
-		// If arguments are provided, try to interpret them as a category name
-		userInput := strings.Join(args[1:], " ")
-		// Exact match
-		if _, exists := categories[userInput]; exists {
-			printCommandsInCategory(userInput)
-			return
-		}
-		// Partial match
-		cat, ok := findCategoryByPartialName(userInput)
-		if ok {
-			printCommandsInCategory(cat)
-		} else {
-			fmt.Printf("No category found matching '%s'.\n", userInput)
+			break
 		}
 	}
 }
