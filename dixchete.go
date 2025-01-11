@@ -15,6 +15,9 @@ import (
 	"image/gif"
 )
 
+// This is the path to the dope ASCII art of my face
+// I tried quite hard to make it refresh but the clear effect is quite displeasing and reduces the quality of the actual tool
+
 //go:embed images/dixchete.gif
 var dixcheteGif []byte
 
@@ -30,7 +33,8 @@ func displayASCIIArt() {
 	}))
 }
 
-//left the variable name as jaedonAvatarJpg but I changed it back to gif
+//left the variable name as jaedonAvatarJpg but I made it equal to a gif
+// My face wobbles in it so each time you run the program it looks a little different
 
 //go:embed images/jaedon_avatar_wobble.gif
 var jaedonAvatarJpg []byte
@@ -43,8 +47,8 @@ func displayJaedonAvatar() {
 	}
 	converter := convert.NewImageConverter()
 	fmt.Println(converter.Image2ASCIIString(img, &convert.Options{
-		Ratio:   1.0,  // Adjust the ratio as needed
-		Colored: true, // Enable colored ASCII art
+		Ratio:   1.0,  // No clue what this really does. It has been redundant in my testing
+		Colored: true, // Enable colored ASCII art - it was very boring before
 	}))
 	fmt.Println("\n\033[34m--------------------------------------\033[0m")
 	fmt.Println("Local Current Time:", time.Now().Format("2006-01-02 15:04:05"))
@@ -72,7 +76,8 @@ type Command struct {
 	ExampleOutput string
 }
 
-// categories holds our commands grouped by category.
+// categories holds our commands grouped by category. Left it as a var so I can add more commands later
+// This is quite easy to change so if there is any interest at all, I will expand it
 var categories = map[string][]Command{
 	"Storage Commands": {
 		{
@@ -136,7 +141,8 @@ PCI\VEN_10DE&DEV_1C82&SUBSYS_33511462&REV_A1\4&F8D4272&0&0008   NVIDIA GeForce G
 	},
 }
 
-// printCategories prints the list of available categories.
+// printCategories prints the list of available categories. I thought I would clarify that 0_0
+
 func printCategories() {
 	fmt.Println("Available Command Categories:")
 	idx := 1
@@ -170,6 +176,7 @@ func printCommandsInCategory(categoryName string) {
 }
 
 // findCategoryByPartialName attempts to match the user input to a category.
+// This is the coolest function. I had to idiot proof it because I can't touch type lol
 func findCategoryByPartialName(input string) (string, bool) {
 	input = strings.ToLower(input)
 	for cat := range categories {
@@ -182,7 +189,8 @@ func findCategoryByPartialName(input string) (string, bool) {
 
 func main() {
 	args := os.Args
-	// If no arguments are provided, show category list and prompt user.
+	// If no arguments are provided, show category list and prompt user to quit
+	// A bit like a bad barrister except no category lists
 	if len(args) == 1 {
 		printCategories()
 
@@ -195,6 +203,7 @@ func main() {
 		}
 
 		// Check if user typed a number or a category name
+		//This pairs up with the partial naming so it is idiot proof squared because I also have fat fingers
 		num, err := strconv.Atoi(text)
 		if err == nil {
 			// It's a number, find the corresponding category

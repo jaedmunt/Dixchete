@@ -8,10 +8,15 @@
 
 Scroll down for the commands, and use the installation instructions for a quick way to build your own `.exe` file to invoke the cheet sheet in your command line on the fly. 
 
-Dependencies:
+## Dependencies:
 
-- Built on windows, not really tested lol
-- Go to compile it (added to PATH)
+1. Go
+2. I built and tested on windows - though no unit tests 
+3. Go (added to PATH)
+4. Install the ascii converter
+    ```go
+        go get -u github.com/qeesung/image2ascii/convert
+    ```
 
 ---
 Command for the cli:
@@ -36,10 +41,10 @@ dixchete
 
 You need to build it yourself, as I have not signed the .exe. You can do so (minus cert) with the following commands:
 
-```bash
+```go
 go mod init dixchete
 ```
-```bash
+```go
 go build -o dixchete.exe dixchete.go
 ```
 
