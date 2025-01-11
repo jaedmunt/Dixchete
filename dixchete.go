@@ -76,12 +76,13 @@ type Command struct {
 	ExampleOutput string
 }
 
+// Fixed the proper formatting of the ansi characters so thery show blue text off
 // categories holds our commands grouped by category. Left it as a var so I can add more commands later
 // This is quite easy to change so if there is any interest at all, I will expand it
 var categories = map[string][]Command{
 	"Storage Commands": {
 		{
-			Name:        "\033[wmic diskdrive get model,name,size,mediaType]\033",
+			Name:        "\033[33mwmic diskdrive get model,name,size,mediaType\033[0m",
 			Description: "Displays the model, name, size, and media type of all disk drives.",
 			Usage:       "Use this command to get detailed information about the disk drives connected to the system.",
 			ExampleOutput: `MediaType              Model                       Name                Size
@@ -89,7 +90,7 @@ Fixed hard disk media  ST1000DM003-1SB10C          \\.\PHYSICALDRIVE0  100020227
 Fixed hard disk media  addlink M.2 PCIE G3x4 NVMe  \\.\PHYSICALDRIVE1  256052966400`,
 		},
 		{
-			Name:        "\033[wmic diskdrive list brief]\033",
+			Name:        "\033[33mwmic diskdrive list brief\033[0m",
 			Description: "Lists brief information about all disk drives.",
 			Usage:       "Use this command to get a quick overview of the disk drives connected to the system.",
 			ExampleOutput: `Caption                     DeviceID            Model                       Partitions  Size
@@ -99,12 +100,12 @@ addlink M.2 PCIE G3x4 NVMe  \\.\PHYSICALDRIVE1  addlink M.2 PCIE G3x4 NVMe  3   
 	},
 	"System Information Commands": {
 		{
-			Name:        "\033[systeminfo]\033",
+			Name:        "\033[32msysteminfo\033[0m",
 			Description: "Displays detailed configuration information about the computer and its operating system.",
 			Usage:       "Use this command to get a complete overview of the system's hardware and software configuration.",
 		},
 		{
-			Name:        "\033[wmic baseboard get product,Manufacturer]\033",
+			Name:        "\033[32mwmic baseboard get product,Manufacturer\033[0m",
 			Description: "Displays the manufacturer and product name of the baseboard (motherboard).",
 			Usage:       "Use this command to get information about your motherboard.",
 			ExampleOutput: `Manufacturer                        Product
@@ -113,7 +114,7 @@ Micro-Star International Co., Ltd.  MPG Z490 GAMING PLUS (MS-7C75)`,
 	},
 	"PCI & Device Commands": {
 		{
-			Name:        `wmic path win32_pnpentity where "PNPDeviceID like '%PCI%'" get Name,DeviceID`,
+			Name:        "\033[35mwmic path win32_pnpentity where \"PNPDeviceID like '%PCI%'\" get Name,DeviceID\033[0m",
 			Description: "Lists the names and device IDs of all Plug and Play entities with PCI in their device ID.",
 			Usage:       "Use this command to get information about PCI devices.",
 			ExampleOutput: `DeviceID                                                        Name
@@ -124,17 +125,17 @@ PCI\VEN_10DE&DEV_1C82&SUBSYS_33511462&REV_A1\4&F8D4272&0&0008   NVIDIA GeForce G
 	},
 	"Network Commands": {
 		{
-			Name:        "\033[ipconfig]\033",
+			Name:        "\033[36mipconfig\033[0m",
 			Description: "Displays all current TCP/IP network configuration values.",
 			Usage:       "Use this command to view network adapter settings (IPv4, IPv6, DNS, etc.).",
 		},
 		{
-			Name:        "\033[ping <hostname or IP>]\033",
+			Name:        "\033[36mping <hostname or IP>\033[0m",
 			Description: "Sends ICMP ECHO_REQUEST packets to network hosts.",
 			Usage:       "Use this command to check the connectivity to a specific host or IP.",
 		},
 		{
-			Name:        "\033[tracert <hostname or IP>]\033",
+			Name:        "\033[36mtracert <hostname or IP>\033[0m",
 			Description: "Prints the route (path) that packets take to a network host.",
 			Usage:       "Use this command to diagnose where network problems might be occurring along the route.",
 		},
