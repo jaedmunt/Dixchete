@@ -6,7 +6,63 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/qeesung/image2ascii/convert"
+
+	"bytes"
+	_ "embed"
+	"image/gif"
 )
+
+//go:embed images/dixchete.gif
+var dixcheteGif []byte
+
+func displayASCIIArt() {
+	img, err := gif.Decode(bytes.NewReader(dixcheteGif))
+	if err != nil {
+		fmt.Println("Failed to decode GIF:", err)
+		return
+	}
+	converter := convert.NewImageConverter()
+	fmt.Println(converter.Image2ASCIIString(img, &convert.Options{
+		Ratio: 1.0, // Adjust the ratio as needed
+	}))
+}
+
+//left the variable name as jaedonAvatarJpg but I changed it back to gif
+
+//go:embed images/jaedon_avatar_wobble.gif
+var jaedonAvatarJpg []byte
+
+func displayJaedonAvatar() {
+	img, err := gif.Decode(bytes.NewReader(jaedonAvatarJpg))
+	if err != nil {
+		fmt.Println("Failed to decode JPEG:", err)
+		return
+	}
+	converter := convert.NewImageConverter()
+	fmt.Println(converter.Image2ASCIIString(img, &convert.Options{
+		Ratio:   1.0,  // Adjust the ratio as needed
+		Colored: true, // Enable colored ASCII art
+	}))
+	fmt.Println("\n\033[34m--------------------------------------\033[0m")
+	fmt.Println("Local Current Time:", time.Now().Format("2006-01-02 15:04:05"))
+	fmt.Println("\033[--------------------------------------]\033")
+	fmt.Println("\033[34mAuthor: Jaedon Munton\033[0m")
+	fmt.Println("\n\033[34mWebsite: https://www.jaedonmunton.pro/\033[0m")
+	fmt.Println("\033[34mGithub: https://www.github.com/jaedmunt\033[0m")
+	fmt.Println("\033[34mLinkedIn: https://www.linkedin.com/in/jaedonmunton/\033[0m")
+}
+
+func init() {
+	fmt.Println("\033[34m--------------------------------------\033[0m")
+	displayASCIIArt()
+	fmt.Println("\033[34m--------------------------------------\033[0m")
+	displayJaedonAvatar()
+	fmt.Println("\033[34m--------------------------------------\033[0m")
+
+}
 
 // Command represents a single command entry in our cheat sheet.
 type Command struct {
@@ -20,7 +76,7 @@ type Command struct {
 var categories = map[string][]Command{
 	"Storage Commands": {
 		{
-			Name:        "wmic diskdrive get model,name,size,mediaType",
+			Name:        "\033[wmic diskdrive get model,name,size,mediaType]\033",
 			Description: "Displays the model, name, size, and media type of all disk drives.",
 			Usage:       "Use this command to get detailed information about the disk drives connected to the system.",
 			ExampleOutput: `MediaType              Model                       Name                Size
@@ -28,7 +84,7 @@ Fixed hard disk media  ST1000DM003-1SB10C          \\.\PHYSICALDRIVE0  100020227
 Fixed hard disk media  addlink M.2 PCIE G3x4 NVMe  \\.\PHYSICALDRIVE1  256052966400`,
 		},
 		{
-			Name:        "wmic diskdrive list brief",
+			Name:        "\033[wmic diskdrive list brief]\033",
 			Description: "Lists brief information about all disk drives.",
 			Usage:       "Use this command to get a quick overview of the disk drives connected to the system.",
 			ExampleOutput: `Caption                     DeviceID            Model                       Partitions  Size
@@ -38,12 +94,12 @@ addlink M.2 PCIE G3x4 NVMe  \\.\PHYSICALDRIVE1  addlink M.2 PCIE G3x4 NVMe  3   
 	},
 	"System Information Commands": {
 		{
-			Name:        "systeminfo",
+			Name:        "\033[systeminfo]\033",
 			Description: "Displays detailed configuration information about the computer and its operating system.",
 			Usage:       "Use this command to get a complete overview of the system's hardware and software configuration.",
 		},
 		{
-			Name:        "wmic baseboard get product,Manufacturer",
+			Name:        "\033[wmic baseboard get product,Manufacturer]\033",
 			Description: "Displays the manufacturer and product name of the baseboard (motherboard).",
 			Usage:       "Use this command to get information about your motherboard.",
 			ExampleOutput: `Manufacturer                        Product
@@ -63,17 +119,17 @@ PCI\VEN_10DE&DEV_1C82&SUBSYS_33511462&REV_A1\4&F8D4272&0&0008   NVIDIA GeForce G
 	},
 	"Network Commands": {
 		{
-			Name:        "ipconfig",
+			Name:        "\033[ipconfig]\033",
 			Description: "Displays all current TCP/IP network configuration values.",
 			Usage:       "Use this command to view network adapter settings (IPv4, IPv6, DNS, etc.).",
 		},
 		{
-			Name:        "ping <hostname or IP>",
+			Name:        "\033[ping <hostname or IP>]\033",
 			Description: "Sends ICMP ECHO_REQUEST packets to network hosts.",
 			Usage:       "Use this command to check the connectivity to a specific host or IP.",
 		},
 		{
-			Name:        "tracert <hostname or IP>",
+			Name:        "\033[tracert <hostname or IP>]\033",
 			Description: "Prints the route (path) that packets take to a network host.",
 			Usage:       "Use this command to diagnose where network problems might be occurring along the route.",
 		},
@@ -109,7 +165,7 @@ func printCommandsInCategory(categoryName string) {
 				fmt.Printf("  %s\n", line)
 			}
 		}
-		fmt.Println("------------------------------------------------------\n")
+		fmt.Println("------------------------------------------------------")
 	}
 }
 
